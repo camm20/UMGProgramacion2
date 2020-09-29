@@ -62,4 +62,15 @@ public class Cliente {
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
+
+    @Override
+    public String toString() {
+        return  "[" + Utilerias.getNombreClase(this.getClass()) + "]{" +
+                "id=" + id +
+                ", nombres='" + nombres + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", departamento='" + departamento + '\'' +
+                '}';
+    }
 }
