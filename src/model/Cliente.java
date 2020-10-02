@@ -65,12 +65,11 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return  "[" + Utilerias.getNombreClase(this.getClass()) + "]{" +
+        return  "[" + Utilerias.getNombreClase(this.getClass()) + "] " +
                 "id=" + id +
                 ", nombres='" + nombres + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", direccion='" + direccion + '\'' +
-                ", departamento='" + departamento + '\'' +
-                '}';
+                ", departamento='" + departamento + '\'';
     }
 }

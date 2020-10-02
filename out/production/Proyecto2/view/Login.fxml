@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="199.0" prefWidth="393.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+    <children>
+        <Label layoutX="54.0" layoutY="66.0" text="Usuario:">
+            <font>
+                <Font name="FreeMono" size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="49.0" layoutY="113.0" text="Password:">
+            <font>
+                <Font name="FreeMono" size="18.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtUsuario" layoutX="154.0" layoutY="63.0" prefHeight="26.0" prefWidth="191.0" />
+        <PasswordField fx:id="txtContrasenia" layoutX="154.0" layoutY="110.0" prefHeight="26.0" prefWidth="191.0" />
+        <Button layoutX="175.0" layoutY="151.0" mnemonicParsing="false" onAction="#validarIngreso" prefHeight="24.0" prefWidth="150.0" text="Ingresar" textAlignment="CENTER">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="6.07" radius="3.23" spread="0.19" width="8.85">
+               <color>
+                  <Color red="0.5394737124443054" green="0.5344785451889038" blue="0.5344785451889038" />
+               </color>
+            </DropShadow>
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="FreeMono Bold" size="13.0" />
+         </font></Button>
+      <ImageView fitHeight="80.0" fitWidth="64.0" layoutX="164.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/login.png" />
+         </image>
+      </ImageView>
+    </children>
+</Pane>
