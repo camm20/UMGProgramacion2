@@ -116,11 +116,9 @@ public class Orden {
 
     public double getTotalOrden() {
         double retTotal = 0;
-        System.out.println(Utilerias.getNombreClase(this.cliente.getClass()));
         if(Utilerias.getNombreClase(this.cliente.getClass()) == Utilerias.getNombreClase(Empresas.class)){
             Empresas clientew = (Empresas) this.cliente;
-            System.out.println(this.total - (this.total * (clientew.getDescuento()/100)));
-            retTotal = this.total - (this.total * (clientew.getDescuento()/100));
+            retTotal = this.total - (this.total * (Double.valueOf(clientew.getDescuento())/100));
         }else{
             retTotal = this.total;
         }
