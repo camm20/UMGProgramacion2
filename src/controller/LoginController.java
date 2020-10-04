@@ -22,7 +22,7 @@ public class LoginController {
         if( txtUsuario.getText().equals("admin") && txtContrasenia.getText().equals("admin") ){
             //tiene acceso
             //((Node) (actionEvent.getSource())).getScene().getWindow().hide();
-            JOptionPane.showMessageDialog(null, "Ingreso Correcto");
+            //----------------------------------------------------------------------->>> JOptionPane.showMessageDialog(null, "Ingreso Correcto");
             //VariablesGlobales.umg = new Universidad("Universidad Mariano Gálvez");
             Stage stagelogin = (Stage) txtUsuario.getScene().getWindow();
             stagelogin.close();

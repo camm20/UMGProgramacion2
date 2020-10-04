@@ -1,20 +1,24 @@
 package model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Orden {
     public static int sigIdOrden = 1;
     private int id;
     private Cliente cliente;
-    private ItemOrden item1;
-    private ItemOrden item2;
+    //private ItemOrden item1;
+    //private ItemOrden item2;
+    private ArrayList<ItemOrden> items;
     private Date fechaOrden;
     private double precioEnvio;
     private double total;
     private String tipoEnvio;
     private String estado;
     private int diasEnvio;
+    private int itemLine = 0;
+
 
     public Orden(){
         this.id = sigIdOrden++;
@@ -27,15 +31,120 @@ public class Orden {
     }
 
     public Orden(int pCliente, Date pFecha) {
+        this.id = sigIdOrden++;
+        this.items = new ArrayList<ItemOrden>();
+        this.cliente = searchCliente(pCliente);
+        this.fechaOrden = pFecha;
+        this.total = 0.0;
+    }
 
+    public int getItemLine(){
+        return this.itemLine;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public ArrayList<ItemOrden> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<ItemOrden> items) {
+        this.items = items;
+    }
+
+    public Date getFechaOrden() {
+        return fechaOrden;
+    }
+
+    public void setFechaOrden(Date fechaOrden) {
+        this.fechaOrden = fechaOrden;
+    }
+
+    public double getPrecioEnvio() {
+        return precioEnvio;
+    }
+
+    public void setPrecioEnvio(double precioEnvio) {
+        this.precioEnvio = precioEnvio;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public String getTipoEnvio() {
+        return tipoEnvio;
+    }
+
+    public void setTipoEnvio(String tipoEnvio) {
+        this.tipoEnvio = tipoEnvio;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public int getDiasEnvio() {
+        return diasEnvio;
+    }
+
+    public void setDiasEnvio(int diasEnvio) {
+        this.diasEnvio = diasEnvio;
     }
 
     public double getTotalOrden() {
-        return 0;
+        double retTotal = 0;
+        System.out.println(Utilerias.getNombreClase(this.cliente.getClass()));
+        if(Utilerias.getNombreClase(this.cliente.getClass()) == Utilerias.getNombreClase(Empresas.class)){
+            Empresas clientew = (Empresas) this.cliente;
+            System.out.println(this.total - (this.total * (clientew.getDescuento()/100)));
+            retTotal = this.total - (this.total * (clientew.getDescuento()/100));
+        }else{
+            retTotal = this.total;
+        }
+
+        return retTotal;
+
     }
 
+    private Cliente searchCliente (int pCliente) {
+        Cliente cliente = null;
+        for(int i=0; i<DataSistema.clientes.size(); i++){
+            if(DataSistema.clientes.get(i).getId() == pCliente){
+                cliente = DataSistema.clientes.get(i);
+                break;
+            }
+        }
+        return cliente;
+    }
 
-
+    public void addItems(int cantidad, int idProducto){
+        ItemOrden newItem = new ItemOrden(this.itemLine++,cantidad,idProducto);
+        this.items.add(newItem);
+        this.total = this.total + newItem.getTotalItem();
+    }
 
     private Timestamp ActualDateTime(){
         Date date = new Date();

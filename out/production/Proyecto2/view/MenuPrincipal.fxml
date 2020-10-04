@@ -1,46 +1,445 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuPrincipalController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuPrincipalController">
     <children>
-        <MenuBar fx:id="menu" layoutX="6.0" layoutY="8.0">
+        <MenuBar fx:id="menu" prefHeight="29.0" prefWidth="900.0">
             <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" text="Clientes">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#showClientesIndividuales" text="Individuales" />
+                        <MenuItem mnemonicParsing="false" onAction="#showClientesEmpresas" text="Empresas" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showCarrera" text="Agregar Carrera" />
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
+                <Menu mnemonicParsing="false" text="Productos">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#showProductosAltas" text="Altas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showProductosBajas" text="Bajas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showProductosCambios" text="Cambios" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Ordenes de Compra">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Altas" />
+                  <MenuItem mnemonicParsing="false" text="Bajas" />
+                  <MenuItem mnemonicParsing="false" text="Cambios" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Reportes">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#reportClientes" text="Clientes" />
+                  <MenuItem mnemonicParsing="false" onAction="#reportProductos" text="Productos" />
+                  <MenuItem mnemonicParsing="false" onAction="#reportesOrdenesdeCompra" text="Ordene de Compra" />
+              </items>
+            </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem mnemonicParsing="false" text="About" />
                     </items>
                 </Menu>
             </menus>
+         <effect>
+            <Lighting bumpInput="$null" diffuseConstant="0.79" specularConstant="0.25" specularExponent="15.24" surfaceScale="0.0">
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
         </MenuBar>
-
-
-        <Pane fx:id="paneCarrera" layoutX="6.0" layoutY="35.0" prefHeight="321.0" prefWidth="570.0" visible="false">
-            <Button layoutX="448.0" layoutY="76.0" mnemonicParsing="false" onAction="#addCarrera" text="Grabar" />
-            <Label layoutX="60.0" layoutY="80.0" text="Nombre Carrera: " />
-            <TextField fx:id="txtNombreCarrera" layoutX="170.0" layoutY="76.0" prefHeight="25.0" prefWidth="215.0" />
-            <TableView fx:id="tblCarreras" layoutX="60.0" layoutY="127.0" prefHeight="241.0" prefWidth="499.0">
-                <columns>
-                    <TableColumn fx:id="tfCodigo" prefWidth="75.0" text="Código" />
-                    <TableColumn fx:id="tfNombre" prefWidth="300.0" text="Nombre" />
-                </columns>
+      <ImageView fitHeight="99.0" fitWidth="31.0" layoutX="861.0" layoutY="-1.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/login.png" />
+         </image>
+      </ImageView>
+      <GridPane fx:id="gridClienteIndividual" layoutX="21.0" layoutY="55.0" prefHeight="390.0" prefWidth="858.0" visible="false">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="163.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="266.0" minHeight="10.0" prefHeight="227.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="29.0" layoutY="6.0" text="Clientes: Individuales" textFill="#c3b496">
+                     <font>
+                        <Font name="Droid Sans Mono" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtAltaClienteIndividualNombre" layoutX="29.0" layoutY="55.0" prefHeight="26.0" prefWidth="114.0" />
+                  <TextField fx:id="txtAltaClienteIndividualApellido" layoutX="159.0" layoutY="55.0" prefHeight="26.0" prefWidth="114.0" />
+                  <TextField fx:id="txtAltaClienteIndividualDireccion" layoutX="291.0" layoutY="55.0" prefHeight="26.0" prefWidth="160.0" />
+                  <TextField fx:id="txtAltaClienteIndividualDepartamento" layoutX="470.0" layoutY="55.0" prefHeight="26.0" prefWidth="160.0" />
+                  <TextField fx:id="txtAltaClienteIndividualDpi" layoutX="648.0" layoutY="55.0" prefHeight="26.0" prefWidth="176.0" />
+                  <Button fx:id="btnClearClienteIndividual" disable="true" layoutX="550.0" layoutY="102.0" mnemonicParsing="false" onAction="#clearClienteIndividual" text="Limpiar">
+                      <font>
+                          <Font name="FreeMono Bold" size="13.0" />
+                      </font>
+                  </Button>
+                  <Button fx:id="btnEditClienteIndividual" disable="true" layoutX="451.0" layoutY="102.0" mnemonicParsing="false" onAction="#editClienteIndividual" text="Modificar">
+                      <font>
+                          <Font name="FreeMono Bold" size="13.0" />
+                      </font>
+                  </Button>
+                  <Button fx:id="btnDeleteClienteIndividual" disable="true" layoutX="357.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteClienteIndividual" text="Eliminar">
+                      <font>
+                          <Font name="FreeMono Bold" size="13.0" />
+                      </font>
+                  </Button>
+                  <Button fx:id="btnAddClienteIndividual" layoutX="263.0" layoutY="103.0" mnemonicParsing="false" onAction="#altaClienteIndividual" text="Agregar">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="29.0" layoutY="31.0" text="Nombre:" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="159.0" layoutY="31.0" text="Apellido:" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="291.0" layoutY="31.0" text="Direccion:" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="470.0" layoutY="31.0" text="Departamanto:" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="648.0" layoutY="31.0" text="DPI:" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <TableView fx:id="tblClientesIndividuales" prefHeight="231.0" prefWidth="858.0" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="tfIndividualId" prefWidth="55.0" text="ID" />
+                <TableColumn fx:id="tfIndividualnombre" prefWidth="126.0" text="Nombre" />
+                  <TableColumn fx:id="tfIndividualApellido" prefWidth="147.0" text="Apellido" />
+                  <TableColumn fx:id="tfIndividualDireccion" prefWidth="103.0" text="Direccion" />
+                  <TableColumn fx:id="tfIndividualDepartamento" prefWidth="137.0" text="Departamento" />
+                  <TableColumn fx:id="tfIndividualDPI" prefWidth="131.0" text="DPI" />
+              </columns>
             </TableView>
-        </Pane>
+         </children>
+      </GridPane>
+      <GridPane fx:id="gridClienteEmpresa" layoutX="21.0" layoutY="55.0" prefHeight="390.0" prefWidth="858.0" visible="false">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="163.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="266.0" minHeight="10.0" prefHeight="227.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="29.0" layoutY="6.0" text="Clientes: Empresas" textFill="#c3b496">
+                     <font>
+                        <Font name="Droid Sans Mono" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtAltaClienteEmpresaNombre" layoutX="29.0" layoutY="55.0" prefHeight="26.0" prefWidth="101.0" />
+                  <TextField fx:id="txtAltaClienteEmpresaApellido" layoutX="145.0" layoutY="55.0" prefHeight="26.0" prefWidth="95.0" />
+                  <TextField fx:id="txtAltaClienteEmpresaDireccion" layoutX="253.0" layoutY="55.0" prefHeight="26.0" prefWidth="114.0" />
+                  <TextField fx:id="txtAltaClienteEmpresaDepartamento" layoutX="386.0" layoutY="55.0" prefHeight="26.0" prefWidth="160.0" />
+                  <TextField fx:id="txtAltaClienteEmpresaContacto" layoutX="560.0" layoutY="55.0" prefHeight="26.0" prefWidth="187.0" />
+                  <Button fx:id="btnClearClienteEmpresa" disable="true" layoutX="550.0" layoutY="102.0" mnemonicParsing="false" onAction="#clearClienteEmpresa" text="Limpiar">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEditClienteEmpresa" disable="true" layoutX="451.0" layoutY="102.0" mnemonicParsing="false" onAction="#editClienteEmpresa" text="Modificar">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnDeleteClienteEmpresa" disable="true" layoutX="357.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteClienteEmpresa" text="Eliminar">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnAddClienteEmpresa" layoutX="263.0" layoutY="103.0" mnemonicParsing="false" onAction="#altaClienteEmpresa" text="Agregar">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="29.0" layoutY="31.0" text="Nombre:" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="145.0" layoutY="31.0" text="Apellido:" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="253.0" layoutY="31.0" text="Direccion:" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="386.0" layoutY="31.0" text="Departamanto:" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="560.0" layoutY="31.0" text="Contacto" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtAltaClienteEmpresaDescuento" layoutX="767.0" layoutY="55.0" prefHeight="26.0" prefWidth="73.0" />
+                  <Label layoutX="767.0" layoutY="31.0" text="Descuento" textFill="#908e8e">
+                     <font>
+                        <Font name="FreeMono Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <TableView fx:id="tblClientesEmpresa" prefHeight="231.0" prefWidth="858.0" GridPane.rowIndex="1">
+               <columns>
+                  <TableColumn fx:id="tfEmpresaId" prefWidth="55.0" text="ID" />
+                  <TableColumn fx:id="tfEmpresaNombre" prefWidth="126.0" text="Nombre" />
+                  <TableColumn fx:id="tfEmpresaApellido" prefWidth="147.0" text="Apellido" />
+                  <TableColumn fx:id="tfEmpresaDireccion" prefWidth="103.0" text="Direccion" />
+                  <TableColumn fx:id="tfEmpresaDepartamento" prefWidth="137.0" text="Departamento" />
+                  <TableColumn fx:id="tfEmpresaContacto" prefWidth="193.0" text="Contacto" />
+                  <TableColumn fx:id="tfEmpresaDescuento" prefWidth="95.0" text="Descuento" />
+               </columns>
+            </TableView>
+         </children>
+      </GridPane>
+      <GridPane fx:id="gpProductos" layoutX="21.0" layoutY="55.0" prefHeight="416.0" prefWidth="858.0" visible="false">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="119.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="321.0" minHeight="10.0" prefHeight="297.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="txtProductosNombre" layoutX="43.0" layoutY="60.0" visible="false" />
+                  <TextField fx:id="txtProductosPrecio" layoutX="243.0" layoutY="60.0" visible="false" />
+                  <Label fx:id="lblProductoAddNombre" layoutX="43.0" layoutY="33.0" text="Nombre:" visible="false" />
+                  <Label fx:id="lblProductoAddPrecio" layoutX="243.0" layoutY="33.0" text="Precio:" visible="false" />
+                  <Button fx:id="btnProductosAgregar" layoutX="444.0" layoutY="60.0" mnemonicParsing="false" onAction="#addProducto" text="Agregar" visible="false" />
+                  <TextField fx:id="txtEditProductosNombre" layoutX="43.0" layoutY="60.0" visible="false" />
+                  <TextField fx:id="txtEditProductosPrecio" layoutX="243.0" layoutY="60.0" visible="false" />
+                  <Button fx:id="btnProductosModificar" layoutX="444.0" layoutY="60.0" mnemonicParsing="false" onAction="#editProducto" text="Modificar" visible="false" />
+                  <Button fx:id="btnProductosEliminar" layoutX="715.0" layoutY="60.0" mnemonicParsing="false" onAction="#deleteProducto" prefHeight="26.0" prefWidth="114.0" text="Eliminar" visible="false" />
+               </children>
+            </Pane>
+            <TableView fx:id="tblProductos" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="tfProductosId" prefWidth="120.0" text="ID" />
+                <TableColumn fx:id="tfProductosNombre" prefWidth="594.0" text="Nombre" />
+                  <TableColumn fx:id="tfProductosPrecio" minWidth="0.0" prefWidth="143.0" text="Precio" />
+              </columns>
+            </TableView>
+         </children>
+      </GridPane>
+      <Pane fx:id="pReportProductos" layoutX="21.0" layoutY="50.0" prefHeight="432.0" prefWidth="858.0" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Reportes &gt; Productos" textFill="#c3b496">
+               <font>
+                  <Font name="Droid Sans Mono" size="14.0" />
+               </font>
+            </Label>
+            <GridPane fx:id="gpReportesProductos" layoutX="147.0" layoutY="52.0" prefHeight="40.0" prefWidth="564.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="92.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="598.0" minWidth="10.0" prefWidth="336.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="167.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="ID" />
+                  <Label layoutX="10.0" layoutY="18.0" text="NOMBRE" GridPane.columnIndex="1" />
+                  <Label layoutX="296.0" layoutY="18.0" text="PRECIO" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
+      <Pane fx:id="pReportClientes" layoutX="21.0" layoutY="50.0" prefHeight="432.0" prefWidth="858.0" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Reportes &gt; Clientes" textFill="#c3b496">
+               <font>
+                  <Font name="Droid Sans Mono" size="14.0" />
+               </font>
+            </Label>
+            <MenuButton fx:id="mbReportClientes" layoutX="662.0" layoutY="32.0" mnemonicParsing="false" text="Filtro Cliente">
+              <items>
+                  <MenuItem fx:id="miReportClienteIndividual" mnemonicParsing="false" onAction="#showReporteClienteInidividual" text="Individual" />
+                <MenuItem fx:id="miReportClienteEmpresa" mnemonicParsing="false" onAction="#showReporteClienteEmpresa" text="Empresa" />
+                <MenuItem fx:id="miReportClienteAmbos" mnemonicParsing="false" onAction="#showReporteClienteAmbos" text="Ambos" />
+              </items>
+            </MenuButton>
+            <GridPane fx:id="gpReporteClientesAmbos" gridLinesVisible="true" layoutY="88.0" prefHeight="60.0" prefWidth="858.0" visible="false">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="88.0" minWidth="10.0" prefWidth="59.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="33.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="91.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="99.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="107.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="119.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="115.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="158.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="83.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="TIPO" />
+                  <Label layoutX="10.0" layoutY="45.0" text="ID" GridPane.columnIndex="1" />
+                  <Label layoutX="133.0" layoutY="45.0" text="NOMBRE" GridPane.columnIndex="2" />
+                  <Label layoutX="256.0" layoutY="45.0" text="APELLIDO" GridPane.columnIndex="3" />
+                  <Label layoutX="379.0" layoutY="45.0" text="DIRECCION" GridPane.columnIndex="4" />
+                  <Label layoutX="502.0" layoutY="45.0" text="DEPARTAMENTO" GridPane.columnIndex="5" />
+                  <Label layoutX="624.0" layoutY="45.0" text="DPI" GridPane.columnIndex="6" />
+                  <Label layoutX="580.0" layoutY="45.0" text="CONTACTO" GridPane.columnIndex="7" />
+                  <Label layoutX="676.0" layoutY="45.0" text="DESCUENTO" GridPane.columnIndex="8" />
+               </children>
+               <opaqueInsets>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+               </padding>
+            </GridPane>
+             <GridPane fx:id="gpReporteClientesIndividuales" gridLinesVisible="true" layoutY="88.0" prefHeight="60.0" prefWidth="858.0" visible="false">
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.0" minWidth="10.0" prefWidth="126.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="51.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="136.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="99.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="107.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="119.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="115.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                 <children>
+                     <Label text="TIPO" />
+                     <Label layoutX="10.0" layoutY="45.0" text="ID" GridPane.columnIndex="1" />
+                     <Label layoutX="133.0" layoutY="45.0" text="NOMBRE" GridPane.columnIndex="2" />
+                     <Label layoutX="256.0" layoutY="45.0" text="APELLIDO" GridPane.columnIndex="3" />
+                     <Label layoutX="379.0" layoutY="45.0" text="DIRECCION" GridPane.columnIndex="4" />
+                     <Label layoutX="502.0" layoutY="45.0" text="DEPARTAMENTO" GridPane.columnIndex="5" />
+                     <Label layoutX="624.0" layoutY="45.0" text="DPI" GridPane.columnIndex="6" />
+                 </children>
+                 <opaqueInsets>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                 </opaqueInsets>
+                 <padding>
+                     <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                 </padding>
+             </GridPane>
+             <GridPane fx:id="gpReporteClientesEmpresas" gridLinesVisible="true" layoutY="88.0" prefHeight="60.0" prefWidth="858.0" visible="false">
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.0" minWidth="10.0" prefWidth="126.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="51.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="136.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="99.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="107.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="119.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="115.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="115.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+                 <children>
+                     <Label text="TIPO" />
+                     <Label layoutX="10.0" layoutY="45.0" text="ID" GridPane.columnIndex="1" />
+                     <Label layoutX="133.0" layoutY="45.0" text="NOMBRE" GridPane.columnIndex="2" />
+                     <Label layoutX="256.0" layoutY="45.0" text="APELLIDO" GridPane.columnIndex="3" />
+                     <Label layoutX="379.0" layoutY="45.0" text="DIRECCION" GridPane.columnIndex="4" />
+                     <Label layoutX="502.0" layoutY="45.0" text="DEPARTAMENTO" GridPane.columnIndex="5" />
+                     <Label layoutX="624.0" layoutY="45.0" text="CONTACTO" GridPane.columnIndex="6" />
+                  <Label layoutX="634.0" layoutY="37.0" text="DESCUENTO" GridPane.columnIndex="7" />
+                 </children>
+                 <opaqueInsets>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                 </opaqueInsets>
+                 <padding>
+                     <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                 </padding>
+             </GridPane>
+         </children>
+      </Pane>
+      <Pane fx:id="pReportesOrdenesdeCompra" layoutX="21.0" layoutY="50.0" prefHeight="432.0" prefWidth="858.0">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Reportes &gt; Ordenes de Compra" textFill="#c3b496">
+               <font>
+                  <Font name="Droid Sans Mono" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtReportesSearchOC" layoutX="14.0" layoutY="65.0" />
+            <Label layoutX="14.0" layoutY="41.0" text="ID Orden de Compra:" />
+            <Button layoutX="198.0" layoutY="65.0" mnemonicParsing="false" onAction="#btnReporteSearchOC" text="Buscar" />
+            <GridPane fx:id="gpReportesOCCliente" layoutY="131.0" prefHeight="53.0" prefWidth="858.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="16.0" prefWidth="68.0" text="NOMBRE" />
+                  <Label text="APELLIDO" GridPane.columnIndex="1" />
+                  <Label text="DIRECCION" GridPane.columnIndex="2" />
+                  <Label text="DEPARTAMENTO" GridPane.columnIndex="3" />
+                  <Label text="DESCUENTO" GridPane.columnIndex="4" />
+               </children>
+            </GridPane>
+            <Label layoutX="388.0" layoutY="109.0" text="CLIENTE:">
+               <font>
+                  <Font name="Fira Code Bold" size="17.0" />
+               </font>
+            </Label>
+            <GridPane fx:id="gpReportesOCItems" layoutX="14.0" layoutY="206.0" prefHeight="53.0" prefWidth="832.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="0.0" prefWidth="25.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="416.0" minWidth="10.0" prefWidth="391.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="CANTIDAD" />
+                  <Label text="PRODUCTO" GridPane.columnIndex="1" />
+                  <Label text="PRECIO" GridPane.columnIndex="2" />
+                  <Label text="TOTAL" GridPane.columnIndex="3" />
+               </children>
+            </GridPane>
+            <Separator layoutX="14.0" layoutY="205.0" prefHeight="7.0" prefWidth="832.0" />
+         </children>
+      </Pane>
 
     </children>
 </Pane>

@@ -8,7 +8,31 @@ public class ItemOrden {
     public ItemOrden(int pNoLinea, int pCantidad, int pIdProducto) {
         this.noLinea = pNoLinea;
         this.cantidad = pCantidad;
-        //this.producto = producto;
+        this.producto = searchProduct(pIdProducto);
+    }
+
+    public int getNoLinea() {
+        return noLinea;
+    }
+
+    public void setNoLinea(int noLinea) {
+        this.noLinea = noLinea;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     @Override
@@ -22,5 +46,18 @@ public class ItemOrden {
 
     public double getTotalItem(){
         return this.producto.getPrecio() * cantidad;
+    }
+
+    private Producto searchProduct(int pIdProducto) {
+        Producto producto = null;
+
+        for (int i = 0; i < DataSistema.productos.size(); i++) {
+            if (DataSistema.productos.get(i).getId() == pIdProducto) {
+                producto = DataSistema.productos.get(i);
+                break;
+            }
+        }
+
+        return producto;
     }
 }
