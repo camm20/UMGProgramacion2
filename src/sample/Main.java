@@ -2,15 +2,12 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import model.*;
 
-import javax.xml.crypto.Data;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Main extends Application {
@@ -34,19 +31,31 @@ public class Main extends Application {
 
 
         DataSistema.ordenes.add(new Orden(1,new Date()));
+        DataSistema.ordenes.add(new Orden(2,new Date()));
+        DataSistema.ordenes.add(new Orden(3,new Date()));
+        DataSistema.ordenes.add(new Orden(4,new Date()));
+        DataSistema.ordenes.add(new Orden(1,new Date()));
+        DataSistema.ordenes.add(new Orden(2,new Date()));
+        DataSistema.ordenes.add(new Orden(3,new Date()));
+        DataSistema.ordenes.add(new Orden(4,new Date()));
+
 
         DataSistema.ordenes.get(0).addItems(5, 2000);
-        System.out.println(DataSistema.ordenes.get(0).getItemLine());
-        DataSistema.ordenes.get(0).addItems(2, 2000);
-        System.out.println(DataSistema.ordenes.get(0).getItemLine());
-
-        System.out.println(DataSistema.ordenes.get(0).getId());
-
-        Date date = new Date();
-        System.out.println(date);
-        System.out.println(new Timestamp(date.getTime()));
-
-        System.out.println("DATA LENGHT >> " + DataSistema.clientes.size());
+        DataSistema.ordenes.get(0).addItems(2, 2001);
+        DataSistema.ordenes.get(1).addItems(10, 2002);
+        DataSistema.ordenes.get(1).addItems(4, 2003);
+        DataSistema.ordenes.get(2).addItems(1, 2004);
+        DataSistema.ordenes.get(2).addItems(2, 2005);
+        DataSistema.ordenes.get(3).addItems(6, 2006);
+        DataSistema.ordenes.get(3).addItems(3, 2007);
+        DataSistema.ordenes.get(4).addItems(2, 2001);
+        DataSistema.ordenes.get(4).addItems(2, 2007);
+        DataSistema.ordenes.get(5).addItems(4, 2002);
+        DataSistema.ordenes.get(5).addItems(5, 2006);
+        DataSistema.ordenes.get(6).addItems(1, 2003);
+        DataSistema.ordenes.get(6).addItems(1, 2005);
+        DataSistema.ordenes.get(7).addItems(2, 2004);
+        DataSistema.ordenes.get(7).addItems(1, 2001);
 
 
         Pane root = (Pane) FXMLLoader.load(getClass().getResource("/view/Login.fxml"));

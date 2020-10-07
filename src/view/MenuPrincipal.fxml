@@ -156,6 +156,7 @@
                   <TextField fx:id="txtAltaClienteEmpresaDireccion" layoutX="253.0" layoutY="55.0" prefHeight="26.0" prefWidth="114.0" />
                   <TextField fx:id="txtAltaClienteEmpresaDepartamento" layoutX="386.0" layoutY="55.0" prefHeight="26.0" prefWidth="160.0" />
                   <TextField fx:id="txtAltaClienteEmpresaContacto" layoutX="560.0" layoutY="55.0" prefHeight="26.0" prefWidth="187.0" />
+                  <TextField fx:id="txtAltaClienteEmpresaDescuento" layoutX="767.0" layoutY="55.0" prefHeight="26.0" prefWidth="73.0" />
                   <Button fx:id="btnClearClienteEmpresa" disable="true" layoutX="550.0" layoutY="102.0" mnemonicParsing="false" onAction="#clearClienteEmpresa" text="Limpiar">
                      <font>
                         <Font name="FreeMono Bold" size="13.0" />
@@ -201,7 +202,6 @@
                         <Font name="FreeMono Bold" size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtAltaClienteEmpresaDescuento" layoutX="767.0" layoutY="55.0" prefHeight="26.0" prefWidth="73.0" />
                   <Label layoutX="767.0" layoutY="31.0" text="Descuento" textFill="#908e8e">
                      <font>
                         <Font name="FreeMono Bold" size="13.0" />
@@ -438,6 +438,24 @@
                </children>
             </GridPane>
             <Separator layoutX="13.0" layoutY="192.0" prefHeight="7.0" prefWidth="832.0" />
+            <Label layoutX="525.0" layoutY="41.0" text="TIPO ENVIO:" />
+            <Label layoutX="641.0" layoutY="41.0" text="DIAS:" />
+            <Label layoutX="718.0" layoutY="41.0" text="PRECIO:" />
+            <Label fx:id="lblReportesOCTipoEnvio" layoutX="525.0" layoutY="57.0" text="Label" textFill="#a1a1a1">
+               <font>
+                  <Font name="FreeMono Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblReportesOCDiasEnvio" layoutX="641.0" layoutY="58.0" text="Label" textFill="#a1a1a1">
+               <font>
+                  <Font name="FreeMono Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblReportesOCPrecioEnvio" layoutX="718.0" layoutY="57.0" text="Label" textFill="#a1a1a1">
+               <font>
+                  <Font name="FreeMono Bold" size="13.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="pOrdenesdeCompraAltas" layoutX="21.0" layoutY="50.0" prefHeight="432.0" prefWidth="858.0" visible="false">
@@ -493,6 +511,20 @@
                </children>
             </GridPane>
             <Separator layoutX="17.0" layoutY="240.0" prefHeight="7.0" prefWidth="821.0" />
+            <Separator layoutX="379.0" layoutY="196.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="7.0" />
+            <TextField fx:id="txtOrdenesdeCompraAltaDiasEnvio" disable="true" layoutX="523.0" layoutY="203.0" prefHeight="26.0" prefWidth="88.0" />
+            <Label layoutX="523.0" layoutY="179.0" text="DIAS:" />
+            <SplitMenuButton fx:id="smbOrdenesdeCompraAltaTipoEnvio" disable="true" layoutX="402.0" layoutY="202.0" mnemonicParsing="false" text="Ninguno">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#ordenesdeCompraAltasEnvioNinguno" text="Ninguno" />
+                <MenuItem mnemonicParsing="false" onAction="#ordenesdeCompraAltasEnvioUber" text="Uber" />
+                  <MenuItem mnemonicParsing="false" onAction="#ordenesdeCompraAltasEnvioGuatex" text="Guatex" />
+              </items>
+            </SplitMenuButton>
+            <Label layoutX="402.0" layoutY="179.0" text="TIPO ENVIO:" />
+            <TextField fx:id="txtOrdenesdeCompraAltaPrecioEnvio" disable="true" layoutX="633.0" layoutY="202.0" prefHeight="26.0" prefWidth="80.0" />
+            <Label layoutX="633.0" layoutY="179.0" text="PRECIO:" />
+            <Button fx:id="btnOrdenesdeCompraAltaAddEnvio" disable="true" layoutX="730.0" layoutY="202.0" mnemonicParsing="false" onAction="#ordenesdeCompraAltasGuardarEnvio" text="Agregar Envio" />
          </children>
       </Pane>
       <Pane fx:id="pOrdenesdeComprasBajas" layoutX="21.0" layoutY="50.0" prefHeight="432.0" prefWidth="858.0" visible="false">

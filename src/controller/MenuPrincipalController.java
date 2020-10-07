@@ -1,14 +1,9 @@
 package controller;
 
-import com.sun.javafx.image.IntPixelGetter;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import javafx.application.Platform;
-import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,10 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import model.*;
-import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -98,6 +91,9 @@ public class MenuPrincipalController {
     public TextField txtReportesSearchOC;
     public GridPane gpReportesOCCliente;
     public GridPane gpReportesOCItems;
+    public Label lblReportesOCTipoEnvio;
+    public Label lblReportesOCDiasEnvio;
+    public Label lblReportesOCPrecioEnvio;
 
 
     public TextField txtOrdenesdeCompraAltaIdCliente;
@@ -131,6 +127,13 @@ public class MenuPrincipalController {
     public TextField txtOrdenesdeCompraCambiosLinea;
     public Button btnOrdenesdeCompraCambiosClean;
     public Button btnOrdenesdeCompraCambiosEndOperation;
+
+    public TextField txtOrdenesdeCompraAltaDiasEnvio;
+    public SplitMenuButton smbOrdenesdeCompraAltaTipoEnvio;
+    public TextField txtOrdenesdeCompraAltaPrecioEnvio;
+    public Button btnOrdenesdeCompraAltaAddEnvio;
+
+
 
     @FXML
     public void initialize() {
@@ -784,6 +787,9 @@ public class MenuPrincipalController {
         txtReportesSearchOC.setText("");
         gpReportesOCCliente.getChildren().remove(5,gpReportesOCCliente.getChildren().size());
         gpReportesOCItems.getChildren().remove(4,gpReportesOCItems.getChildren().size());
+        lblReportesOCTipoEnvio.setText("");
+        lblReportesOCDiasEnvio.setText("");
+        lblReportesOCPrecioEnvio.setText("");
 
     }
 
@@ -816,6 +822,10 @@ public class MenuPrincipalController {
             for (int i = 0; i < DataSistema.ordenes.size(); i++) {
                 if (Integer.parseInt(txtReportesSearchOC.getText()) == DataSistema.ordenes.get(i).getId()) {
                     oc = DataSistema.ordenes.get(i);
+
+                    lblReportesOCTipoEnvio.setText(oc.getTipoEnvio());
+                    lblReportesOCDiasEnvio.setText(String.valueOf(oc.getDiasEnvio()));
+                    lblReportesOCPrecioEnvio.setText(String.valueOf(oc.getPrecioEnvio()));
 
                     if (Utilerias.getNombreClase(oc.getCliente().getClass()) == Utilerias.getNombreClase(Individual.class)) {
                         clIndividual = (Individual) oc.getCliente();
@@ -886,6 +896,14 @@ public class MenuPrincipalController {
         btnOrdenesdeCompraAltaSearchCliente.setDisable(false);
         btnOrdenesdeCompraAltaAddProducto.setDisable(true);
         btnOrdenesdeCompraAltaClear.setDisable(true);
+        txtOrdenesdeCompraAltaDiasEnvio.setDisable(true);
+        txtOrdenesdeCompraAltaPrecioEnvio.setDisable(true);
+        btnOrdenesdeCompraAltaAddEnvio.setDisable(true);
+        smbOrdenesdeCompraAltaTipoEnvio.setDisable(true);
+        smbOrdenesdeCompraAltaTipoEnvio.setText("Ninguno");
+        txtOrdenesdeCompraAltaDiasEnvio.setText("");
+        txtOrdenesdeCompraAltaPrecioEnvio.setText("");
+
     }
 
     public void ordenesdeCompraSerachCliente(ActionEvent actionEvent) {
@@ -902,6 +920,12 @@ public class MenuPrincipalController {
                     Label lblDireccion = new Label(DataSistema.clientes.get(i).getDireccion());
                     Label lblDepartamento = new Label(DataSistema.clientes.get(i).getDepartamento());
 
+
+                    txtOrdenesdeCompraAltaDiasEnvio.setDisable(true);
+                    txtOrdenesdeCompraAltaPrecioEnvio.setDisable(true);
+                    btnOrdenesdeCompraAltaAddEnvio.setDisable(true);
+                    smbOrdenesdeCompraAltaTipoEnvio.setDisable(false);
+
                     txtOrdendeCompraCodigoOC.setText(String.valueOf(orden.getId()));
                     gpOrdenesdeCompraAltaCliente.addRow(1, lblCode, lblNombre, lblApellido, lblDireccion, lblDepartamento);
                     txtOrdenesdeCompraAltaIdCliente.setDisable(true);
@@ -915,6 +939,61 @@ public class MenuPrincipalController {
         }
     }
 
+    public void ordenesdeCompraAltasEnvioNinguno(ActionEvent actionEvent) {
+        txtOrdenesdeCompraAltaDiasEnvio.setDisable(true);
+        txtOrdenesdeCompraAltaPrecioEnvio.setDisable(true);
+        btnOrdenesdeCompraAltaAddEnvio.setDisable(true);
+        smbOrdenesdeCompraAltaTipoEnvio.setText("Ninguno");
+        txtOrdenesdeCompraAltaDiasEnvio.setText("");
+        txtOrdenesdeCompraAltaPrecioEnvio.setText("");
+
+        for (int i=0; i<DataSistema.ordenes.size(); i++){
+            if(Integer.parseInt(txtOrdendeCompraCodigoOC.getText()) == DataSistema.ordenes.get(i).getId()){
+                DataSistema.ordenes.get(i).setTipoEnvio("Ninguno");
+                DataSistema.ordenes.get(i).setPrecioEnvio(0);
+                DataSistema.ordenes.get(i).setDiasEnvio(0);
+                break;
+            }
+        }
+    }
+
+    public void ordenesdeCompraAltasEnvioUber(ActionEvent actionEvent) {
+        txtOrdenesdeCompraAltaDiasEnvio.setDisable(false);
+        txtOrdenesdeCompraAltaPrecioEnvio.setDisable(false);
+        btnOrdenesdeCompraAltaAddEnvio.setDisable(false);
+        smbOrdenesdeCompraAltaTipoEnvio.setText("Uber");
+    }
+
+    public void ordenesdeCompraAltasEnvioGuatex(ActionEvent actionEvent) {
+        txtOrdenesdeCompraAltaDiasEnvio.setDisable(false);
+        txtOrdenesdeCompraAltaPrecioEnvio.setDisable(false);
+        btnOrdenesdeCompraAltaAddEnvio.setDisable(false);
+        smbOrdenesdeCompraAltaTipoEnvio.setText("Guatex");
+    }
+
+    public void ordenesdeCompraAltasGuardarEnvio(ActionEvent actionEvent) {
+        ordenesdeCompraAltasSaveEnvio();
+    }
+
+    private void ordenesdeCompraAltasSaveEnvio(){
+        try {
+            for (int i = 0; i < DataSistema.ordenes.size(); i++) {
+                if (Integer.parseInt(txtOrdendeCompraCodigoOC.getText()) == DataSistema.ordenes.get(i).getId()) {
+                    DataSistema.ordenes.get(i).setTipoEnvio(smbOrdenesdeCompraAltaTipoEnvio.getText());
+                    if (!txtOrdenesdeCompraAltaDiasEnvio.getText().equals("")) {
+                        DataSistema.ordenes.get(i).setDiasEnvio(Integer.parseInt(txtOrdenesdeCompraAltaDiasEnvio.getText()));
+                    }
+                    if (!txtOrdenesdeCompraAltaPrecioEnvio.getText().equals("")) {
+                        DataSistema.ordenes.get(i).setPrecioEnvio(Double.parseDouble(txtOrdenesdeCompraAltaPrecioEnvio.getText()));
+                    }
+                    JOptionPane.showMessageDialog(null, "Datos de envio guardados.", "Info",JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                }
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Verificar que los datos ingresados en la seccion de envio esten correctos.", "Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     public void ordenesdeCompraAddProducto(ActionEvent actionEvent) {
         if(!txtOrdenesdeCompraAltaCantidadProducto.getText().equals("") && !txtOrdenesdeCompraAltaIdProducto.getText().equals("")) {
@@ -958,6 +1037,14 @@ public class MenuPrincipalController {
         btnOrdenesdeCompraAltaSearchCliente.setDisable(false);
         btnOrdenesdeCompraAltaAddProducto.setDisable(true);
         btnOrdenesdeCompraAltaClear.setDisable(true);
+
+        txtOrdenesdeCompraAltaDiasEnvio.setDisable(true);
+        txtOrdenesdeCompraAltaPrecioEnvio.setDisable(true);
+        btnOrdenesdeCompraAltaAddEnvio.setDisable(true);
+        smbOrdenesdeCompraAltaTipoEnvio.setDisable(true);
+        smbOrdenesdeCompraAltaTipoEnvio.setText("Ninguno");
+        txtOrdenesdeCompraAltaDiasEnvio.setText("");
+        txtOrdenesdeCompraAltaPrecioEnvio.setText("");
     }
 
     /* END ORDENES DE COMPRAS ALTAS */
@@ -1123,6 +1210,8 @@ public class MenuPrincipalController {
                 btnOrdenesdeCompraCambiosSearchOC.setDisable(true);
                 btnOrdenesdeCompraCambiosEndOperation.setDisable(false);
                 btnOrdenesdeCompraCambiosAdd.setDisable(false);
+                txtOrdenesdeCompraCambiosIdProducto.setDisable(false);
+                txtOrdenesdeCompraCambiosCantidad.setDisable(false);
 
                 for (int c = 0; c < DataSistema.ordenes.get(i).getItems().size(); c++) {
 
@@ -1266,7 +1355,7 @@ public class MenuPrincipalController {
         JOptionPane.showMessageDialog(null, "CAMM - DEV | v 1.0.1");
     }
 
-    /* END ORDNES DE COMPRAS CAMBIOS */
 
+    /* END ORDNES DE COMPRAS CAMBIOS */
 
 }

@@ -36,6 +36,11 @@ public class Orden {
         this.cliente = searchCliente(pCliente);
         this.fechaOrden = pFecha;
         this.total = 0.0;
+
+        this.estado = "Generada";
+        this.tipoEnvio = "Ninguno";
+        this.precioEnvio = 0;
+        this.diasEnvio = 0;
     }
 
     public int getItemLine(){
