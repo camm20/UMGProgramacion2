@@ -33,13 +33,7 @@ public class LoginController {
             stage.setTitle("Proyecto 2");
             stage.setScene(new Scene(root,900,500));
             stage.show();
-            /*
-            Pane root = (Pane) FXMLLoader.load(getClass().getResource("/view/MainWindow.fxml"));
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Proyecto 2 APP");
-            stage.show();*/
+
         }else{
             //acceso restringido
             txtUsuario.setText("");

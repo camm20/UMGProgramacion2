@@ -117,6 +117,20 @@ public class MenuPrincipalController {
     public Pane pOrdenesdeComprasBajas;
     public Button btnOrdenesdeCompraBajasSearch;
 
+    /*ORDENES DE COMPRA - CAMBIOS*/
+    public Pane pOrdenesdeCompraCambios;
+    public TextField txtOrdenesdeCompraCambiosIdOC;
+    public Button btnOrdenesdeCompraCambiosSearchOC;
+    public TextField txtOrdenesdeCompraCambiosIdProducto;
+    public TextField txtOrdenesdeCompraCambiosCantidad;
+    public Button btnOrdenesdeCompraCambiosAdd;
+    public Button btnOrdenesdeCompraCambiosEdit;
+    public Button btnOrdenesdeCompraCambiosDelete;
+    public GridPane gpOrdenesdeCompraCambios;
+    public TextField txtOrdenesdeCompraCambiosLinea;
+    public Button btnOrdenesdeCompraCambiosClean;
+    public Button btnOrdenesdeCompraCambiosEndOperation;
+
     @FXML
     public void initialize() {
 
@@ -222,6 +236,7 @@ public class MenuPrincipalController {
         pReportesOrdenesdeCompra.setVisible(false);
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
     }
 
     private void selectTableRow(){
@@ -288,6 +303,7 @@ public class MenuPrincipalController {
         pReportesOrdenesdeCompra.setVisible(false);
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
     }
 
     private List<Empresas> showTablaClientesEmpresas(Class<Empresas> tipoCliente) {
@@ -438,6 +454,7 @@ public class MenuPrincipalController {
         pReportesOrdenesdeCompra.setVisible(false);
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
 
         ObservableList<Producto> data =
                 FXCollections.observableArrayList(DataSistema.productos);
@@ -470,6 +487,7 @@ public class MenuPrincipalController {
         pReportesOrdenesdeCompra.setVisible(false);
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
 
         ObservableList<Producto> data =
                 FXCollections.observableArrayList(DataSistema.productos);
@@ -502,6 +520,7 @@ public class MenuPrincipalController {
         pReportesOrdenesdeCompra.setVisible(false);
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
 
         ObservableList<Producto> data =
                 FXCollections.observableArrayList(DataSistema.productos);
@@ -593,6 +612,7 @@ public class MenuPrincipalController {
         pReportesOrdenesdeCompra.setVisible(false);
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
     }
 
     /* START REPORTE CLIENTES */
@@ -605,6 +625,7 @@ public class MenuPrincipalController {
         pReportesOrdenesdeCompra.setVisible(false);
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
 
         gpReporteClientesIndividuales.setVisible(false);
         gpReporteClientesEmpresas.setVisible(false);
@@ -728,6 +749,7 @@ public class MenuPrincipalController {
         gridClienteEmpresa.setVisible(false);
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
 
     }
 
@@ -811,6 +833,7 @@ public class MenuPrincipalController {
         gridClienteIndividual.setVisible(false);
         gridClienteEmpresa.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
 
         gpOrdenesdeCompraAltaCliente.getChildren().remove(5,gpOrdenesdeCompraAltaCliente.getChildren().size());
         if(gpOrdenesdeCompraAltaItems.getChildren().size() > 2) {
@@ -910,6 +933,7 @@ public class MenuPrincipalController {
         gpProductos.setVisible(false);
         gridClienteIndividual.setVisible(false);
         gridClienteEmpresa.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
 
         btnOrdenesdeCompraBajasClear.setDisable(true);
         btnOrdenesdeCompraBajasDeleteOC.setDisable(true);
@@ -975,7 +999,7 @@ public class MenuPrincipalController {
         Empresas clEmpresa = null;
         Individual clIndividual = null;
         for (int i=0; i < DataSistema.ordenes.size(); i++){
-            if(Integer.parseInt(txtOrdenesdeCompraBajaCodigoOC.getText()) == DataSistema.ordenes.get(i).getId()){
+            if(!txtOrdenesdeCompraBajaCodigoOC.getText().equals("") && Integer.parseInt(txtOrdenesdeCompraBajaCodigoOC.getText()) == DataSistema.ordenes.get(i).getId()){
                 txtOrdenesdeCompraBajaCodigoOC.setDisable(true);
                 btnOrdenesdeCompraBajasSearch.setDisable(true);
                 btnOrdenesdeCompraBajasClear.setDisable(false);
@@ -1023,6 +1047,168 @@ public class MenuPrincipalController {
     }
 
     /* END ORDENES DE COMPRAS BAJAS */
+
+
+    /* START ORDNES DE COMPRAS CAMBIOS */
+
+    public void searchOrdenesdeCompraCambios(ActionEvent actionEvent) {
+        searchOrdenesdeCompraCambiosGeneral();
+    }
+
+    private void searchOrdenesdeCompraCambiosGeneral(){
+        gpOrdenesdeCompraCambios.getChildren().remove(6,gpOrdenesdeCompraCambios.getChildren().size());
+        for(int i=0; i < DataSistema.ordenes.size(); i++){
+            if (!txtOrdenesdeCompraCambiosIdOC.getText().equals("") && Integer.parseInt(txtOrdenesdeCompraCambiosIdOC.getText()) == DataSistema.ordenes.get(i).getId()) {
+                txtOrdenesdeCompraCambiosIdOC.setDisable(true);
+                btnOrdenesdeCompraCambiosSearchOC.setDisable(true);
+                btnOrdenesdeCompraCambiosEndOperation.setDisable(false);
+                txtOrdenesdeCompraCambiosIdProducto.setDisable(false);
+                txtOrdenesdeCompraCambiosCantidad.setDisable(false);
+                for (int c = 0; c < DataSistema.ordenes.get(i).getItems().size(); c++) {
+
+                    String textlinea = String.valueOf(DataSistema.ordenes.get(i).getItems().get(c).getNoLinea());
+                    String textcodprd = String.valueOf(DataSistema.ordenes.get(i).getItems().get(c).getProducto().getId());
+                    String textcantidad = String.valueOf(DataSistema.ordenes.get(i).getItems().get(c).getCantidad());
+
+                    Label linea = new Label(String.valueOf(DataSistema.ordenes.get(i).getItems().get(c).getNoLinea()));
+                    Label codprd = new Label(String.valueOf(DataSistema.ordenes.get(i).getItems().get(c).getProducto().getId()));
+                    Label nameprd = new Label(DataSistema.ordenes.get(i).getItems().get(c).getProducto().getNombre());
+                    Label priceprd = new Label(String.valueOf(DataSistema.ordenes.get(i).getItems().get(c).getProducto().getPrecio()));
+                    Label cantidad = new Label(String.valueOf(DataSistema.ordenes.get(i).getItems().get(c).getCantidad()));
+
+                    Button button = new Button("Editar");
+
+                    button.setOnAction(value -> {
+                        txtOrdenesdeCompraCambiosLinea.setText(textlinea);
+                        txtOrdenesdeCompraCambiosIdProducto.setText(textcodprd);
+                        txtOrdenesdeCompraCambiosCantidad.setText(textcantidad);
+
+                        btnOrdenesdeCompraCambiosAdd.setDisable(true);
+                        btnOrdenesdeCompraCambiosDelete.setDisable(false);
+                        btnOrdenesdeCompraCambiosEdit.setDisable(false);
+                        btnOrdenesdeCompraCambiosClean.setDisable(false);
+                    });
+
+                    gpOrdenesdeCompraCambios.addRow(c + 1, linea, codprd, nameprd, priceprd, cantidad, button);
+                    gpOrdenesdeCompraCambios.prefHeight(40);
+                }
+                break;
+            }
+        }
+    }
+
+    public void btnOrdenesdeCompraCambiosClean(ActionEvent actionEvent) {
+        txtOrdenesdeCompraCambiosLinea.setText("");
+        txtOrdenesdeCompraCambiosIdProducto.setText("");
+        txtOrdenesdeCompraCambiosCantidad.setText("");
+
+        btnOrdenesdeCompraCambiosAdd.setDisable(false);
+        btnOrdenesdeCompraCambiosEdit.setDisable(true);
+        btnOrdenesdeCompraCambiosDelete.setDisable(true);
+        btnOrdenesdeCompraCambiosClean.setDisable(true);
+    }
+
+    public void btnOrdenesdeCompraCambiosEndOperation(ActionEvent actionEvent) {
+
+        txtOrdenesdeCompraCambiosIdOC.setDisable(false);
+        txtOrdenesdeCompraCambiosIdOC.setText("");
+        btnOrdenesdeCompraCambiosSearchOC.setDisable(false);
+        btnOrdenesdeCompraCambiosEndOperation.setDisable(true);
+
+        txtOrdenesdeCompraCambiosIdProducto.setDisable(true);
+        txtOrdenesdeCompraCambiosCantidad.setDisable(true);
+
+        btnOrdenesdeCompraCambiosAdd.setDisable(true);
+        btnOrdenesdeCompraCambiosEdit.setDisable(true);
+        btnOrdenesdeCompraCambiosDelete.setDisable(true);
+        btnOrdenesdeCompraCambiosClean.setDisable(true);
+
+        txtOrdenesdeCompraCambiosLinea.setText("");
+        txtOrdenesdeCompraCambiosIdProducto.setText("");
+        txtOrdenesdeCompraCambiosCantidad.setText("");
+
+        gpOrdenesdeCompraCambios.getChildren().remove(6,gpOrdenesdeCompraCambios.getChildren().size());
+
+    }
+
+    public void btnOrdenesdeCompraCambiosAdd(ActionEvent actionEvent) {
+        if(!txtOrdenesdeCompraCambiosCantidad.getText().equals("") && !txtOrdenesdeCompraCambiosIdProducto.getText().equals("")) {
+            for (int i = 0; i < DataSistema.ordenes.size(); i++) {
+                if (!txtOrdenesdeCompraCambiosIdOC.getText().equals("") && Integer.parseInt(txtOrdenesdeCompraCambiosIdOC.getText()) == DataSistema.ordenes.get(i).getId()) {
+                    DataSistema.ordenes.get(i).addItems(Integer.parseInt(txtOrdenesdeCompraCambiosCantidad.getText()), Integer.parseInt(txtOrdenesdeCompraCambiosIdProducto.getText()));
+                    txtOrdenesdeCompraCambiosIdProducto.setText("");
+                    txtOrdenesdeCompraCambiosCantidad.setText("");
+                    searchOrdenesdeCompraCambiosGeneral();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void btnOrdenesdeCompraCambiosEdit(ActionEvent actionEvent) {
+        if(!txtOrdenesdeCompraCambiosCantidad.getText().equals("") && !txtOrdenesdeCompraCambiosIdProducto.getText().equals("")) {
+            for (int i = 0; i < DataSistema.ordenes.size(); i++) {
+                if (!txtOrdenesdeCompraCambiosIdOC.getText().equals("") && Integer.parseInt(txtOrdenesdeCompraCambiosIdOC.getText()) == DataSistema.ordenes.get(i).getId()) {
+                    Producto producto = null;
+
+                    for (int p=0; p < DataSistema.productos.size(); p++) {
+                        if(Integer.parseInt(txtOrdenesdeCompraCambiosIdProducto.getText()) == DataSistema.productos.get(p).getId()){
+                            producto = DataSistema.productos.get(p);
+                            break;
+                        }
+                    }
+
+                    DataSistema.ordenes.get(i).getItems().get(Integer.parseInt(txtOrdenesdeCompraCambiosLinea.getText())-1).setCantidad(Integer.parseInt(txtOrdenesdeCompraCambiosCantidad.getText()));
+                    DataSistema.ordenes.get(i).getItems().get(Integer.parseInt(txtOrdenesdeCompraCambiosLinea.getText())-1).setProducto(producto);
+
+
+                    txtOrdenesdeCompraCambiosLinea.setText("");
+                    txtOrdenesdeCompraCambiosIdProducto.setText("");
+                    txtOrdenesdeCompraCambiosCantidad.setText("");
+                    searchOrdenesdeCompraCambiosGeneral();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void btnOrdenesdeCompraCambiosDelete(ActionEvent actionEvent) {
+        if(!txtOrdenesdeCompraCambiosLinea.getText().equals("")) {
+            ItemOrden itemOrden = null;
+            for (int i = 0; i < DataSistema.ordenes.size(); i++) {
+                if (!txtOrdenesdeCompraCambiosIdOC.getText().equals("") && Integer.parseInt(txtOrdenesdeCompraCambiosIdOC.getText()) == DataSistema.ordenes.get(i).getId()) {
+                    itemOrden = DataSistema.ordenes.get(i).getItems().get(Integer.parseInt(txtOrdenesdeCompraCambiosLinea.getText())-1);
+                    DataSistema.ordenes.get(i).getItems().remove(itemOrden);
+
+                    txtOrdenesdeCompraCambiosLinea.setText("");
+                    txtOrdenesdeCompraCambiosIdProducto.setText("");
+                    txtOrdenesdeCompraCambiosCantidad.setText("");
+                    searchOrdenesdeCompraCambiosGeneral();
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public void menuOrdenesdeCompraCambios(ActionEvent actionEvent) {
+        pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraAltas.setVisible(false);
+        pReportesOrdenesdeCompra.setVisible(false);
+        pReportClientes.setVisible(false);
+        pReportProductos.setVisible(false);
+        gpProductos.setVisible(false);
+        gridClienteIndividual.setVisible(false);
+        gridClienteEmpresa.setVisible(false);
+
+        pOrdenesdeCompraCambios.setVisible(true);
+    }
+
+    public void menuHelpAbout(ActionEvent actionEvent) {
+        JOptionPane.showMessageDialog(null, "CAMM - DEV | v 1.0.1");
+    }
+    
+    /* END ORDNES DE COMPRAS CAMBIOS */
 
 
 }
