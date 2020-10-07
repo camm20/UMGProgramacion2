@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.javafx.image.IntPixelGetter;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import javafx.application.Platform;
 import javafx.beans.property.Property;
@@ -154,7 +155,42 @@ public class MenuPrincipalController {
         tfProductosPrecio.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("precio"));
     }
 
+    public void close(MouseEvent actionEvent) {
+        Platform.exit();
+        System.exit(0);
+    }
 
+    /* START CLIENTES - ALTA, BAJA, CAMBIOS DE CLIENTES --> INDIVIDUALES */
+    public void showClientesIndividuales(ActionEvent actionEvent) {
+        showTablaClientesIndividual(Individual.class);
+        ObservableList<Individual> data =
+                FXCollections.observableArrayList(showTablaClientesIndividual(Individual.class));
+        tblClientesIndividuales.setItems(data);
+        tblClientesIndividuales.setOnMouseClicked(e -> {selectTableRow();});
+        gridClienteIndividual.setVisible(true);
+        gridClienteEmpresa.setVisible(false);
+        gpProductos.setVisible(false);
+        pReportClientes.setVisible(false);
+        pReportProductos.setVisible(false);
+        pReportesOrdenesdeCompra.setVisible(false);
+        pOrdenesdeCompraAltas.setVisible(false);
+        pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraCambios.setVisible(false);
+        clientesIndividualesClearView();
+    }
+
+    private void clientesIndividualesClearView(){
+        txtAltaClienteIndividualDpi.setText("");
+        txtAltaClienteIndividualDepartamento.setText("");
+        txtAltaClienteIndividualDireccion.setText("");
+        txtAltaClienteIndividualApellido.setText("");
+        txtAltaClienteIndividualNombre.setText("");
+
+        btnDeleteClienteIndividual.setDisable(true);
+        btnClearClienteIndividual.setDisable(true);
+        btnEditClienteIndividual.setDisable(true);
+        btnAddClienteIndividual.setDisable(false);
+    }
 
     public void altaClienteIndividual(ActionEvent actionEvent) {
         try {
@@ -164,7 +200,6 @@ public class MenuPrincipalController {
                         txtAltaClienteIndividualDepartamento.getText(), txtAltaClienteIndividualDpi.getText()));
             }
 
-            //showTablaClientesBy(Individual.class);
             ObservableList<Individual> data =
                     FXCollections.observableArrayList(showTablaClientesIndividual(Individual.class));
             tblClientesIndividuales.setItems(data);
@@ -216,29 +251,6 @@ public class MenuPrincipalController {
         return filtroClientes;
     }
 
-    public void close(MouseEvent actionEvent) {
-        Platform.exit();
-        System.exit(0);
-    }
-
-
-    public void showClientesIndividuales(ActionEvent actionEvent) {
-        showTablaClientesIndividual(Individual.class);
-        ObservableList<Individual> data =
-                FXCollections.observableArrayList(showTablaClientesIndividual(Individual.class));
-        tblClientesIndividuales.setItems(data);
-        tblClientesIndividuales.setOnMouseClicked(e -> {selectTableRow();});
-        gridClienteIndividual.setVisible(true);
-        gridClienteEmpresa.setVisible(false);
-        gpProductos.setVisible(false);
-        pReportClientes.setVisible(false);
-        pReportProductos.setVisible(false);
-        pReportesOrdenesdeCompra.setVisible(false);
-        pOrdenesdeCompraAltas.setVisible(false);
-        pOrdenesdeComprasBajas.setVisible(false);
-        pOrdenesdeCompraCambios.setVisible(false);
-    }
-
     private void selectTableRow(){
         for(Individual cliente : tblClientesIndividuales.getSelectionModel().getSelectedItems()){
             for(int i=1; i <=1; i++){
@@ -288,7 +300,9 @@ public class MenuPrincipalController {
         txtAltaClienteIndividualDpi.setText("");
     }
 
-    /* ALTA, BAJA, CAMBIOS DE CLIENTES --> EMPRESAS */
+    /* END CLIENTES - ALTA, BAJA, CAMBIOS DE CLIENTES --> INDIVIDUALES */
+
+    /* START CLIENTES - ALTA, BAJA, CAMBIOS DE CLIENTES --> EMPRESAS */
 
     public void showClientesEmpresas(ActionEvent actionEvent) {
         ObservableList<Empresas> data =
@@ -304,6 +318,22 @@ public class MenuPrincipalController {
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
         pOrdenesdeCompraCambios.setVisible(false);
+
+        clientesEmpresasClearView();
+    }
+
+    private void clientesEmpresasClearView() {
+        txtAltaClienteEmpresaNombre.setText("");
+        txtAltaClienteEmpresaApellido.setText("");
+        txtAltaClienteEmpresaDireccion.setText("");
+        txtAltaClienteEmpresaDepartamento.setText("");
+        txtAltaClienteEmpresaContacto.setText("");
+        txtAltaClienteEmpresaDescuento.setText("");
+
+        btnEditClienteEmpresa.setDisable(true);
+        btnDeleteClienteEmpresa.setDisable(true);
+        btnClearClienteEmpresa.setDisable(true);
+        btnAddClienteEmpresa.setDisable(false);
     }
 
     private List<Empresas> showTablaClientesEmpresas(Class<Empresas> tipoCliente) {
@@ -425,10 +455,6 @@ public class MenuPrincipalController {
         txtAltaClienteEmpresaDescuento.setText("");
     }
 
-
-
-
-
     /* END ALTAS, BAJAS, CAMBIOS CLIENTES --> EMPRESAS */
 
 
@@ -455,6 +481,9 @@ public class MenuPrincipalController {
         pOrdenesdeCompraAltas.setVisible(false);
         pOrdenesdeComprasBajas.setVisible(false);
         pOrdenesdeCompraCambios.setVisible(false);
+
+        txtProductosNombre.setText("");
+        txtProductosPrecio.setText("");
 
         ObservableList<Producto> data =
                 FXCollections.observableArrayList(DataSistema.productos);
@@ -630,6 +659,7 @@ public class MenuPrincipalController {
         gpReporteClientesIndividuales.setVisible(false);
         gpReporteClientesEmpresas.setVisible(false);
         gpReporteClientesAmbos.setVisible(false);
+        mbReportClientes.setText("Filtro Cliente");
     }
 
     public void showReporteClienteInidividual(ActionEvent actionEvent) {
@@ -751,6 +781,10 @@ public class MenuPrincipalController {
         pOrdenesdeComprasBajas.setVisible(false);
         pOrdenesdeCompraCambios.setVisible(false);
 
+        txtReportesSearchOC.setText("");
+        gpReportesOCCliente.getChildren().remove(5,gpReportesOCCliente.getChildren().size());
+        gpReportesOCItems.getChildren().remove(4,gpReportesOCItems.getChildren().size());
+
     }
 
 
@@ -778,51 +812,53 @@ public class MenuPrincipalController {
         Orden oc = null;
         Empresas clEmpresa = null;
         Individual clIndividual = null;
-        for (int i=0; i < DataSistema.ordenes.size(); i++){
-            if(Integer.parseInt(txtReportesSearchOC.getText()) == DataSistema.ordenes.get(i).getId()){
-                oc = DataSistema.ordenes.get(i);
+        if(!txtReportesSearchOC.getText().equals("")) {
+            for (int i = 0; i < DataSistema.ordenes.size(); i++) {
+                if (Integer.parseInt(txtReportesSearchOC.getText()) == DataSistema.ordenes.get(i).getId()) {
+                    oc = DataSistema.ordenes.get(i);
 
-                if(Utilerias.getNombreClase(oc.getCliente().getClass()) == Utilerias.getNombreClase(Individual.class)){
-                    clIndividual = (Individual) oc.getCliente();
-                    clNombre = new Label(clIndividual.getNombres());
-                    clApellido = new Label(clIndividual.getApellidos());
-                    clDireccion = new Label(clIndividual.getDireccion());
-                    clDepartamento = new Label(clIndividual.getDepartamento());
-                    clDescuento = new Label("");
+                    if (Utilerias.getNombreClase(oc.getCliente().getClass()) == Utilerias.getNombreClase(Individual.class)) {
+                        clIndividual = (Individual) oc.getCliente();
+                        clNombre = new Label(clIndividual.getNombres());
+                        clApellido = new Label(clIndividual.getApellidos());
+                        clDireccion = new Label(clIndividual.getDireccion());
+                        clDepartamento = new Label(clIndividual.getDepartamento());
+                        clDescuento = new Label("");
 
 
-                }else if(Utilerias.getNombreClase(oc.getCliente().getClass()) == Utilerias.getNombreClase(Empresas.class)){
-                    clEmpresa = (Empresas) oc.getCliente();
-                    clNombre = new Label(clEmpresa.getNombres());
-                    clApellido = new Label(clEmpresa.getApellidos());
-                    clDireccion = new Label(clEmpresa.getDireccion());
-                    clDepartamento = new Label(clEmpresa.getDepartamento());
-                    clDescuento = new Label(String.valueOf(clEmpresa.getDescuento()));
+                    } else if (Utilerias.getNombreClase(oc.getCliente().getClass()) == Utilerias.getNombreClase(Empresas.class)) {
+                        clEmpresa = (Empresas) oc.getCliente();
+                        clNombre = new Label(clEmpresa.getNombres());
+                        clApellido = new Label(clEmpresa.getApellidos());
+                        clDireccion = new Label(clEmpresa.getDireccion());
+                        clDepartamento = new Label(clEmpresa.getDepartamento());
+                        clDescuento = new Label(String.valueOf(clEmpresa.getDescuento()));
+                    }
+
+                    gpReportesOCCliente.addRow(1, clNombre, clApellido, clDireccion, clDepartamento, clDescuento);
+                    gpReportesOCCliente.prefHeight(40);
+
+                    for (int io = 0; io < oc.getItems().size(); io++) {
+                        pCantidad = new Label(String.valueOf(oc.getItems().get(io).getCantidad()));
+                        pNombre = new Label(oc.getItems().get(io).getProducto().getNombre());
+                        pPrecio = new Label(String.valueOf(oc.getItems().get(io).getProducto().getPrecio()));
+                        pTotal = new Label(String.valueOf(oc.getItems().get(io).getProducto().getPrecio() * oc.getItems().get(io).getCantidad()));
+
+                        gpReportesOCItems.addRow(io + 1, pCantidad, pNombre, pPrecio, pTotal);
+                        gpReportesOCItems.prefHeight(40);
+                    }
+
+                    gpReportesOCItems.addRow(oc.getItemLine() + 1, new Label(""), new Label("SUBTOTAL:"), new Label(""), new Label(String.valueOf(oc.getTotal())));
+                    gpReportesOCItems.addRow(oc.getItemLine() + 2, new Label(""), new Label("TOTAL:"), new Label(""), new Label(String.valueOf(oc.getTotalOrden())));
+                    break;
                 }
-
-                gpReportesOCCliente.addRow(1, clNombre, clApellido, clDireccion, clDepartamento, clDescuento);
-                gpReportesOCCliente.prefHeight(40);
-
-                for (int io=0; io<oc.getItems().size(); io++){
-                    pCantidad = new Label(String.valueOf(oc.getItems().get(io).getCantidad()));
-                    pNombre = new Label(oc.getItems().get(io).getProducto().getNombre());
-                    pPrecio = new Label(String.valueOf(oc.getItems().get(io).getProducto().getPrecio()));
-                    pTotal = new Label(String.valueOf(oc.getItems().get(io).getProducto().getPrecio() * oc.getItems().get(io).getCantidad()));
-
-                    gpReportesOCItems.addRow(io+1, pCantidad, pNombre, pPrecio, pTotal);
-                    gpReportesOCItems.prefHeight(40);
-                }
-
-                gpReportesOCItems.addRow(oc.getItemLine()+1,new Label(""), new Label("SUBTOTAL:"), new Label(""), new Label(String.valueOf(oc.getTotal())));
-                gpReportesOCItems.addRow(oc.getItemLine()+2,new Label(""), new Label("TOTAL:"), new Label(""), new Label(String.valueOf(oc.getTotalOrden())));
-
             }
         }
     }
 
-
-
     /* END REPORTE DE ORDENES DE COMPRA*/
+
+    /* START ORDENES DE COMPRAS ALTAS */
 
     public void ordenesDeCompraAlta(ActionEvent actionEvent) {
         pOrdenesdeCompraAltas.setVisible(true);
@@ -854,51 +890,55 @@ public class MenuPrincipalController {
 
     public void ordenesdeCompraSerachCliente(ActionEvent actionEvent) {
         gpOrdenesdeCompraAltaCliente.getChildren().remove(5,gpOrdenesdeCompraAltaCliente.getChildren().size());
-        for (int i=0; i<DataSistema.clientes.size(); i++){
-            if(Integer.parseInt(txtOrdenesdeCompraAltaIdCliente.getText()) == DataSistema.clientes.get(i).getId()){
-                Orden orden = new Orden(DataSistema.clientes.get(i).getId(),new Date());
-                DataSistema.ordenes.add(orden);
-                Label lblCode = new Label(String.valueOf(orden.getId()));
-                Label lblNombre = new Label(DataSistema.clientes.get(i).getNombres());
-                Label lblApellido = new Label(DataSistema.clientes.get(i).getApellidos());
-                Label lblDireccion = new Label(DataSistema.clientes.get(i).getDireccion());
-                Label lblDepartamento = new Label(DataSistema.clientes.get(i).getDepartamento());
 
-                txtOrdendeCompraCodigoOC.setText(String.valueOf(orden.getId()));
-                gpOrdenesdeCompraAltaCliente.addRow(1,lblCode,lblNombre,lblApellido,lblDireccion,lblDepartamento);
-                txtOrdenesdeCompraAltaIdCliente.setDisable(true);
-                btnOrdenesdeCompraAltaSearchCliente.setDisable(true);
-                txtOrdenesdeCompraAltaCantidadProducto.setDisable(false);
-                txtOrdenesdeCompraAltaIdProducto.setDisable(false);
-                btnOrdenesdeCompraAltaAddProducto.setDisable(false);
-                btnOrdenesdeCompraAltaClear.setDisable(false);
+        if(!txtOrdenesdeCompraAltaIdCliente.getText().equals("")) {
+            for (int i = 0; i < DataSistema.clientes.size(); i++) {
+                if (Integer.parseInt(txtOrdenesdeCompraAltaIdCliente.getText()) == DataSistema.clientes.get(i).getId()) {
+                    Orden orden = new Orden(DataSistema.clientes.get(i).getId(), new Date());
+                    DataSistema.ordenes.add(orden);
+                    Label lblCode = new Label(String.valueOf(orden.getId()));
+                    Label lblNombre = new Label(DataSistema.clientes.get(i).getNombres());
+                    Label lblApellido = new Label(DataSistema.clientes.get(i).getApellidos());
+                    Label lblDireccion = new Label(DataSistema.clientes.get(i).getDireccion());
+                    Label lblDepartamento = new Label(DataSistema.clientes.get(i).getDepartamento());
+
+                    txtOrdendeCompraCodigoOC.setText(String.valueOf(orden.getId()));
+                    gpOrdenesdeCompraAltaCliente.addRow(1, lblCode, lblNombre, lblApellido, lblDireccion, lblDepartamento);
+                    txtOrdenesdeCompraAltaIdCliente.setDisable(true);
+                    btnOrdenesdeCompraAltaSearchCliente.setDisable(true);
+                    txtOrdenesdeCompraAltaCantidadProducto.setDisable(false);
+                    txtOrdenesdeCompraAltaIdProducto.setDisable(false);
+                    btnOrdenesdeCompraAltaAddProducto.setDisable(false);
+                    btnOrdenesdeCompraAltaClear.setDisable(false);
+                }
             }
         }
     }
 
 
     public void ordenesdeCompraAddProducto(ActionEvent actionEvent) {
-        System.out.println(Integer.parseInt(txtOrdendeCompraCodigoOC.getText()));
-        Orden orden = null;
-        if(gpOrdenesdeCompraAltaItems.getChildren().size() > 2) {
-            gpOrdenesdeCompraAltaItems.getChildren().remove(3, gpOrdenesdeCompraAltaItems.getChildren().size());
-        }
-        for (int i=0; i < DataSistema.ordenes.size(); i++){
-            if(Integer.parseInt(txtOrdendeCompraCodigoOC.getText()) == DataSistema.ordenes.get(i).getId()){
-                orden = DataSistema.ordenes.get(i);
-                orden.addItems(Integer.parseInt(txtOrdenesdeCompraAltaCantidadProducto.getText()), Integer.parseInt(txtOrdenesdeCompraAltaIdProducto.getText()));
+        if(!txtOrdenesdeCompraAltaCantidadProducto.getText().equals("") && !txtOrdenesdeCompraAltaIdProducto.getText().equals("")) {
+            Orden orden = null;
+            if (gpOrdenesdeCompraAltaItems.getChildren().size() > 2) {
+                gpOrdenesdeCompraAltaItems.getChildren().remove(3, gpOrdenesdeCompraAltaItems.getChildren().size());
+            }
+            for (int i = 0; i < DataSistema.ordenes.size(); i++) {
+                if (Integer.parseInt(txtOrdendeCompraCodigoOC.getText()) == DataSistema.ordenes.get(i).getId()) {
+                    orden = DataSistema.ordenes.get(i);
+                    orden.addItems(Integer.parseInt(txtOrdenesdeCompraAltaCantidadProducto.getText()), Integer.parseInt(txtOrdenesdeCompraAltaIdProducto.getText()));
 
-                for (int io=0; io < orden.getItems().size(); io++){
-                    Label lblCantidad = new Label(String.valueOf(orden.getItems().get(io).getCantidad()));
-                    Label lblProducto = new Label(orden.getItems().get(io).getProducto().getNombre());
-                    Label lblPrecio = new Label(String.valueOf(orden.getItems().get(io).getProducto().getPrecio()));
+                    for (int io = 0; io < orden.getItems().size(); io++) {
+                        Label lblCantidad = new Label(String.valueOf(orden.getItems().get(io).getCantidad()));
+                        Label lblProducto = new Label(orden.getItems().get(io).getProducto().getNombre());
+                        Label lblPrecio = new Label(String.valueOf(orden.getItems().get(io).getProducto().getPrecio()));
 
-                    gpOrdenesdeCompraAltaItems.addRow(io+1,lblCantidad,lblProducto,lblPrecio);
+                        gpOrdenesdeCompraAltaItems.addRow(io + 1, lblCantidad, lblProducto, lblPrecio);
+                    }
                 }
             }
+            txtOrdenesdeCompraAltaIdProducto.setText("");
+            txtOrdenesdeCompraAltaCantidadProducto.setText("");
         }
-        txtOrdenesdeCompraAltaIdProducto.setText("");
-        txtOrdenesdeCompraAltaCantidadProducto.setText("");
     }
 
 
@@ -940,9 +980,14 @@ public class MenuPrincipalController {
         txtOrdenesdeCompraBajaCodigoOC.setDisable(false);
         txtOrdenesdeCompraBajaCodigoOC.setText("");
         btnOrdenesdeCompraBajasSearch.setDisable(false);
+        ordenesdeCompraBajasClearView();
     }
 
     public void ordenesdeCompraBajasClear(ActionEvent actionEvent) {
+        ordenesdeCompraBajasClearView();
+    }
+
+    private void ordenesdeCompraBajasClearView(){
         gpOrdenesdeCompraBajasCliente.getChildren().remove(5,gpOrdenesdeCompraBajasCliente.getChildren().size());
         if(gpOrdenesdeCompraBajasProductos.getChildren().size() > 3) {
             gpOrdenesdeCompraBajasProductos.getChildren().remove(4, gpOrdenesdeCompraBajasProductos.getChildren().size());
@@ -1051,6 +1096,21 @@ public class MenuPrincipalController {
 
     /* START ORDNES DE COMPRAS CAMBIOS */
 
+    public void menuOrdenesdeCompraCambios(ActionEvent actionEvent) {
+        pOrdenesdeComprasBajas.setVisible(false);
+        pOrdenesdeCompraAltas.setVisible(false);
+        pReportesOrdenesdeCompra.setVisible(false);
+        pReportClientes.setVisible(false);
+        pReportProductos.setVisible(false);
+        gpProductos.setVisible(false);
+        gridClienteIndividual.setVisible(false);
+        gridClienteEmpresa.setVisible(false);
+
+        pOrdenesdeCompraCambios.setVisible(true);
+
+        ordenesdeCompraCambiosClearView();
+    }
+
     public void searchOrdenesdeCompraCambios(ActionEvent actionEvent) {
         searchOrdenesdeCompraCambiosGeneral();
     }
@@ -1062,8 +1122,8 @@ public class MenuPrincipalController {
                 txtOrdenesdeCompraCambiosIdOC.setDisable(true);
                 btnOrdenesdeCompraCambiosSearchOC.setDisable(true);
                 btnOrdenesdeCompraCambiosEndOperation.setDisable(false);
-                txtOrdenesdeCompraCambiosIdProducto.setDisable(false);
-                txtOrdenesdeCompraCambiosCantidad.setDisable(false);
+                btnOrdenesdeCompraCambiosAdd.setDisable(false);
+
                 for (int c = 0; c < DataSistema.ordenes.get(i).getItems().size(); c++) {
 
                     String textlinea = String.valueOf(DataSistema.ordenes.get(i).getItems().get(c).getNoLinea());
@@ -1082,11 +1142,12 @@ public class MenuPrincipalController {
                         txtOrdenesdeCompraCambiosLinea.setText(textlinea);
                         txtOrdenesdeCompraCambiosIdProducto.setText(textcodprd);
                         txtOrdenesdeCompraCambiosCantidad.setText(textcantidad);
-
                         btnOrdenesdeCompraCambiosAdd.setDisable(true);
                         btnOrdenesdeCompraCambiosDelete.setDisable(false);
                         btnOrdenesdeCompraCambiosEdit.setDisable(false);
                         btnOrdenesdeCompraCambiosClean.setDisable(false);
+                        txtOrdenesdeCompraCambiosIdProducto.setDisable(false);
+                        txtOrdenesdeCompraCambiosCantidad.setDisable(false);
                     });
 
                     gpOrdenesdeCompraCambios.addRow(c + 1, linea, codprd, nameprd, priceprd, cantidad, button);
@@ -1098,6 +1159,10 @@ public class MenuPrincipalController {
     }
 
     public void btnOrdenesdeCompraCambiosClean(ActionEvent actionEvent) {
+        ordenesdeCompraCambiosCleanActionsSection();
+    }
+
+    private void ordenesdeCompraCambiosCleanActionsSection(){
         txtOrdenesdeCompraCambiosLinea.setText("");
         txtOrdenesdeCompraCambiosIdProducto.setText("");
         txtOrdenesdeCompraCambiosCantidad.setText("");
@@ -1109,7 +1174,10 @@ public class MenuPrincipalController {
     }
 
     public void btnOrdenesdeCompraCambiosEndOperation(ActionEvent actionEvent) {
+        ordenesdeCompraCambiosClearView();
+    }
 
+    private void ordenesdeCompraCambiosClearView(){
         txtOrdenesdeCompraCambiosIdOC.setDisable(false);
         txtOrdenesdeCompraCambiosIdOC.setText("");
         btnOrdenesdeCompraCambiosSearchOC.setDisable(false);
@@ -1128,7 +1196,6 @@ public class MenuPrincipalController {
         txtOrdenesdeCompraCambiosCantidad.setText("");
 
         gpOrdenesdeCompraCambios.getChildren().remove(6,gpOrdenesdeCompraCambios.getChildren().size());
-
     }
 
     public void btnOrdenesdeCompraCambiosAdd(ActionEvent actionEvent) {
@@ -1149,6 +1216,7 @@ public class MenuPrincipalController {
         if(!txtOrdenesdeCompraCambiosCantidad.getText().equals("") && !txtOrdenesdeCompraCambiosIdProducto.getText().equals("")) {
             for (int i = 0; i < DataSistema.ordenes.size(); i++) {
                 if (!txtOrdenesdeCompraCambiosIdOC.getText().equals("") && Integer.parseInt(txtOrdenesdeCompraCambiosIdOC.getText()) == DataSistema.ordenes.get(i).getId()) {
+
                     Producto producto = null;
 
                     for (int p=0; p < DataSistema.productos.size(); p++) {
@@ -1157,15 +1225,13 @@ public class MenuPrincipalController {
                             break;
                         }
                     }
-
-                    DataSistema.ordenes.get(i).getItems().get(Integer.parseInt(txtOrdenesdeCompraCambiosLinea.getText())-1).setCantidad(Integer.parseInt(txtOrdenesdeCompraCambiosCantidad.getText()));
-                    DataSistema.ordenes.get(i).getItems().get(Integer.parseInt(txtOrdenesdeCompraCambiosLinea.getText())-1).setProducto(producto);
-
+                    DataSistema.ordenes.get(i).updateItems(Integer.parseInt(txtOrdenesdeCompraCambiosLinea.getText()), Integer.parseInt(txtOrdenesdeCompraCambiosCantidad.getText()), producto);
 
                     txtOrdenesdeCompraCambiosLinea.setText("");
                     txtOrdenesdeCompraCambiosIdProducto.setText("");
                     txtOrdenesdeCompraCambiosCantidad.setText("");
                     searchOrdenesdeCompraCambiosGeneral();
+                    ordenesdeCompraCambiosCleanActionsSection();
                     break;
                 }
             }
@@ -1177,13 +1243,16 @@ public class MenuPrincipalController {
             ItemOrden itemOrden = null;
             for (int i = 0; i < DataSistema.ordenes.size(); i++) {
                 if (!txtOrdenesdeCompraCambiosIdOC.getText().equals("") && Integer.parseInt(txtOrdenesdeCompraCambiosIdOC.getText()) == DataSistema.ordenes.get(i).getId()) {
+
                     itemOrden = DataSistema.ordenes.get(i).getItems().get(Integer.parseInt(txtOrdenesdeCompraCambiosLinea.getText())-1);
-                    DataSistema.ordenes.get(i).getItems().remove(itemOrden);
+                    DataSistema.ordenes.get(i).deleteItems(itemOrden);
+                    System.out.println(DataSistema.ordenes.get(i).getItemLine());
 
                     txtOrdenesdeCompraCambiosLinea.setText("");
                     txtOrdenesdeCompraCambiosIdProducto.setText("");
                     txtOrdenesdeCompraCambiosCantidad.setText("");
                     searchOrdenesdeCompraCambiosGeneral();
+                    ordenesdeCompraCambiosCleanActionsSection();
                     break;
                 }
             }
@@ -1191,23 +1260,12 @@ public class MenuPrincipalController {
 
     }
 
-    public void menuOrdenesdeCompraCambios(ActionEvent actionEvent) {
-        pOrdenesdeComprasBajas.setVisible(false);
-        pOrdenesdeCompraAltas.setVisible(false);
-        pReportesOrdenesdeCompra.setVisible(false);
-        pReportClientes.setVisible(false);
-        pReportProductos.setVisible(false);
-        gpProductos.setVisible(false);
-        gridClienteIndividual.setVisible(false);
-        gridClienteEmpresa.setVisible(false);
 
-        pOrdenesdeCompraCambios.setVisible(true);
-    }
 
     public void menuHelpAbout(ActionEvent actionEvent) {
         JOptionPane.showMessageDialog(null, "CAMM - DEV | v 1.0.1");
     }
-    
+
     /* END ORDNES DE COMPRAS CAMBIOS */
 
 

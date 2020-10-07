@@ -17,7 +17,7 @@ public class Orden {
     private String tipoEnvio;
     private String estado;
     private int diasEnvio;
-    private int itemLine = 1;
+    private int itemLine = 0;
 
 
     public Orden(){
@@ -139,14 +139,46 @@ public class Orden {
     }
 
     public void addItems(int cantidad, int idProducto){
-        ItemOrden newItem = new ItemOrden(this.itemLine++,cantidad,idProducto);
-        this.items.add(newItem);
-        this.total = this.total + newItem.getTotalItem();
+        if(validProductId(idProducto)) {
+            ItemOrden newItem = new ItemOrden(++this.itemLine, cantidad, idProducto);
+            this.items.add(newItem);
+            this.total = this.total + newItem.getTotalItem();
+        }
+    }
+
+    public void deleteItems(ItemOrden itemOrden){
+        this.items.remove(itemOrden);
+        this.itemLine--;
+        recalcTotal();
+    }
+
+    public void updateItems(int linea, int cantidad, Producto producto){
+        this.items.get(linea-1).setCantidad(cantidad);
+        this.items.get(linea-1).setProducto(producto);
+        recalcTotal();
+    }
+
+    private void recalcTotal(){
+        this.total = 0;
+        for(int i=0; i<this.items.size();i++){
+            this.total += this.items.get(i).getTotalItem();
+        }
     }
 
     private Timestamp ActualDateTime(){
         Date date = new Date();
         return new Timestamp(date.getTime());
+    }
+
+    private boolean validProductId(int pIdProducto) {
+        boolean resp = false;
+        for (int i = 0; i < DataSistema.productos.size(); i++) {
+            if (DataSistema.productos.get(i).getId() == pIdProducto) {
+                resp = true;
+                break;
+            }
+        }
+        return resp;
     }
 
 }
